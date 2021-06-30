@@ -1,0 +1,328 @@
+---
+title: 'MERCADO DE CRÉDITO </br> (AULA 08)'
+subtitle: 'ADM03F - Macroeconomia'
+author: 'Autor: Victor Valerio'
+date: 'Última atualização: `r format(Sys.Date(),"%d-%m-%Y")`'
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+
+
+library(xaringanthemer)
+
+
+style_mono_light(base_color = '#23395b')
+
+
+```
+
+
+```{r , echo=FALSE}
+ 
+
+xaringanExtra::use_scribble()
+
+
+xaringanExtra::use_search(show_icon = TRUE)
+
+
+```
+
+## TÓPICOS ABORDADOS
+
+</br>
+
+- [**CONCEITO DE SPREAD BANCÁRIO**](#spreadbancaria)
+
+</br>
+
+- [**INDICADORES DE MERCADO DE CRÉDITO**](#indicadores)
+
+
+
+
+---
+class: inverse, center, middle 
+name: taxadejurosimportantes
+
+## CONCEITO DE SPREAD BANCÁRIO
+
+
+
+
+---
+<div style="text-align: justify">
+
+## CONCEITO DE SPREAD BANCÁRIO
+
+</br>
+
+- Os bancos são chamados de intermediários financeiros, isto é, eles captam recursos de agentes 
+superavitários e realocam para agentes deficitários através de suas operações de crédito;
+
+</br>
+
+- Por isso os bancos são instituições importantes, eles viabilizam os investimentos aumentando a 
+produção de uma determinada economia.
+
+
+
+---
+class: inverse
+<div style="text-align: justify">
+
+## CONCEITO DE SPREAD BANCÁRIO
+
+```{r, echo = F, warning = F, message = F, error = F, out.width= '90%', fig.align = 'center'}
+
+
+
+knitr::include_graphics('fig1.PNG', dpi = 300)
+
+
+
+```
+
+
+---
+<div style="text-align: justify">
+
+## CONCEITO DE SPREAD BANCÁRIO
+
+</br>
+
+- Quando os bancos realizam operações de captação eles pagam juros aos agentes superavitários (para 
+estimular que a operação seja realizada);
+
+</br>
+
+- De outro lado, quando os bancos emprestam dinheiro eles cobram juros (devido ao pagamento de custos 
+administrativos, lucro e risco).
+
+</br>
+
+- Obviamente, os juros pagos pelos bancos nas operações de captação são menores que os juros cobrados 
+nas operações de empréstimos. Esta diferença entre taxas é chamada de spread bancário.  
+
+
+---
+class: inverse
+<div style="text-align: justify">
+
+## CONCEITO DE SPREAD BANCÁRIO
+
+```{r, echo = F, warning = F, message = F, error = F, out.width= '90%', fig.align = 'center'}
+
+
+
+knitr::include_graphics('fig2.PNG', dpi = 300)
+
+
+
+```
+
+---
+class: inverse
+<div style="text-align: justify">
+
+## IMPACTO DA SELIC NA INFLAÇÃO DE DEMANDA
+
+```{r, echo = F, warning = F, message = F, error = F, out.width= '90%', fig.align = 'center'}
+
+
+
+knitr::include_graphics('fig3.png', dpi = 300)
+
+
+
+```
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle 
+name: indicadores
+
+## INDICADORES DE MERCADO DE CRÉDITO
+
+
+
+
+
+
+
+
+---
+<div style="text-align: justify">
+
+## INDICADORES DE MERCADO DE CRÉDITO
+
+
+- O **Sistema Financeiro Nacional – SFN** tem por objetivo principal intermediar recursos entre 
+agentes superavitários e agentes deficitários. Processo denominado de **Intermediação Financeira**;
+
+</br>
+
+- Por sua vez, as operações de intermediação financeira são muito relevantes para o **crescimento 
+econômico** (e/ou desenvolvimento econômico) dos países, uma vez que, fomentam a **alocação de recursos
+ociosos no setor produtivo**;
+
+</br>
+
+- De fato, existem uma série de instrumentos de intermediação financeira operacionalizados por diferentes instituições. Assim, pode-se observar que o Sistema Financeiro Nacional é composto por diferentes mercados.
+
+--
+
+</br>
+
+**Obs.**: Toda a composição do SFN será especificada em aulas futuras.
+
+
+
+
+
+
+---
+<div style="text-align: justify">
+
+## INDICADORES DE MERCADO DE CRÉDITO
+
+
+- No mesmo contexto, as **operações de empréstimo** explicadas nos tópicos anteriores correspondem a 
+operações de **intermediação financeira** formando, assim, o **mercado de crédito** (O primeiro mercado 
+do **SFN** a ser analisado por nós);
+
+
+</br>
+
+
+- Ao mesmo passo que o mercado de crédito possui o potencial de fomentar o desenvolvimento econômico,
+crises financeiras podem impactar intensamente no desempenho econômico do país e, portanto, todo o 
+mercado deve ser regulado e monitorado; 
+
+</br>
+
+- Conforme aprofundaremos à frente, este é mais uma das **funções desempenhadas pelo Banco Central do 
+Brasil - BCB**. De todo modo, cumpre agora compreender a análise de conjuntura do mercado de crédito e, 
+para tanto, pode-se utilizar algumas das métricas organizadas pelo próprio BCB.
+
+
+
+
+
+
+---
+<div style="text-align: justify">
+
+## INDICADORES DE MERCADO DE CRÉDITO
+
+</br>
+
+- Obviamente, pode-se **avaliar** a conjuntura do **mercado de crédito** a partir de uma série de
+perspectivas, por exemplo:
+
+  - **Quantidade de Operações**;
+  
+  - **Estoque de Operações**;
+  
+  - **Taxas de Juros Praticadas**;
+  
+  - **Spread Bancário**;
+  
+  - **Atraso e Inadimplência**;
+  
+  - **Endividamento das Famílias**;
+  
+  - **Provisão para Perdas**.
+
+
+
+
+---
+<div style="text-align: justify">
+
+## QUANTIDADE DE OPERAÇÕES
+
+
+---
+<div style="text-align: justify">
+
+## ESTOQUE DE OPERAÇÕES
+
+
+---
+<div style="text-align: justify">
+
+## TAXAS DE JUROS PRATICADAS
+
+
+---
+<div style="text-align: justify">
+
+## SPREAD BANCÁRIO
+
+
+---
+<div style="text-align: justify">
+
+## ATRASO E INADIMPLÊNCIA
+
+
+---
+<div style="text-align: justify">
+
+## ENDIVIDAMENTO DAS FAMÍLIAS
+
+
+---
+<div style="text-align: justify">
+
+
+## PROVISÃO PARA PERDAS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
