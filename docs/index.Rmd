@@ -13,6 +13,234 @@ output:
       countIncrementalSlides: true
 ---
 
+```{r, include = F, results = 'asis', echo = F, warning = F, message = F, error = F, fig.align ='center', out.width='100%', fig.cap = ''}
+
+
+
+
+# PACOTES UTILIZADOS NA PROGRAMAÇÃO:
+
+
+# importação de dados do BCB. 
+library(Quandl) 
+
+
+# importação de dados do IBGE.
+library(sidrar)
+
+
+# ciência de dados.
+library(tidyverse) 
+
+
+# alteração layout de dados gráficos.
+library(scales) 
+
+
+# criação de gráfico dinâmico.
+library(plotly)
+
+
+# tratamento de séries temporais
+library(seasonal)
+
+
+
+
+# IMPORTAÇÃO DE DADOS DO BCB PELO QUANDL:
+
+
+# Api para realização de importação (máximo 50 séries por dia).
+Quandl.api_key('ULsszkAsP1mszsPxGjqx')
+
+
+# Valor das novas operações de crédito contratadas (milhões de reais/mês).
+concessao_credito_total <- Quandl('BCB/20631', 
+                                  
+                                  order = 'asc')
+
+
+# Valor das novas operações de crédito contratadas por pj (milhões de reais/mês).
+concessao_credito_pj <- Quandl('BCB/20632', 
+                               
+                               order = 'asc')
+
+
+# Valor das novas operações de crédito contratadas por pf (milhões de reais/mês).
+concessao_credito_pf <- Quandl('BCB/20633', 
+                               
+                               order = 'asc')
+
+
+# Valor das novas operações de crédito contratadas taxas livres (milhões de reais/mês).
+concessao_credito_livre <- Quandl('BCB/20634', 
+                                  
+                                  order = 'asc')
+
+
+# Valor das novas operações de crédito contratadas taxas regulamentadas (milhões de reais/mês).
+concessao_credito_direcionado <- Quandl('BCB/20685', 
+                                        
+                                        order = 'asc')
+
+
+# Saldo em final de período das operações de crédito contratadas (milhões de reais/mês).
+estoque_credito_total <- Quandl('BCB/20539', 
+                                
+                                order = 'asc', 
+                                
+                                start_date = '2011-03-31')
+
+
+# Saldo das operações de crédito bancos privados (milhões de reais/mês).
+estoque_credito_privado <- Quandl('BCB/2043', 
+                                  
+                                  order='asc',
+                                  
+                                  start_date = '2011-03-31')
+
+
+# Saldo das operações de crédito bancos privados (milhões de reais/mês).
+estoque_credito_publico <- Quandl('BCB/2007', 
+                                  
+                                  order='asc', 
+                                  
+                                  start_date = '2011-03-31')
+
+
+# Taxa média de juros das novas operações de crédito contratadas (% a.a./mês).
+taxa_juro_media <- Quandl('BCB/20714', 
+                          
+                          order='asc')
+
+
+# Diferença taxa média de juros período e o custo de captação médio (ptos percentuais/mês).
+spread_total <- Quandl('BCB/20783', 
+                       
+                       order='asc')
+
+
+# Diferença taxa média de juros pj período e o custo de captação médio (ptos percentuais/mês).
+spread_total_pj <- Quandl('BCB/20784', 
+                       
+                       order='asc')
+
+
+# Diferença taxa média de juros pf período e o custo de captação médio (ptos percentuais/mês).
+spread_total_pf <- Quandl('BCB/20785', 
+                       
+                       order='asc')
+
+
+# Diferença taxa média de juros livres período e o custo de captação médio (ptos %/mês).
+spread_livres <- Quandl('BCB/20786', 
+                       
+                       order='asc')
+
+
+# Diferença taxa média de juros direcionados período e o custo de captação médio (ptos %/mês).
+spread_direcionados <- Quandl('BCB/20825', 
+                       
+                       order='asc')
+
+
+# % crédito total c/ pelo menos 1 parcela c/ atraso 15-90 dias (%/mês).
+prop_atraso_total <- Quandl('BCB/21003', 
+                       
+                       order='asc')
+
+
+# % crédito pj c/ pelo menos 1 parcela c/ atraso 15-90 dias (%/mês).
+prop_atraso_pj <- Quandl('BCB/21004', 
+                       
+                       order='asc')
+
+
+# % crédito pf c/ pelo menos 1 parcela c/ atraso 15-90 dias (%/mês).
+prop_atraso_pf <- Quandl('BCB/21005', 
+                       
+                       order='asc')
+
+
+# % crédito livre c/ pelo menos 1 parcela c/ atraso 15-90 dias (%/mês).
+prop_atraso_livre <- Quandl('BCB/21006', 
+                       
+                       order='asc')
+
+
+# % crédito direcionado c/ pelo menos 1 parcela c/ atraso 15-90 dias (%/mês).
+prop_atraso_direcionado <- Quandl('BCB/21054', 
+                       
+                       order='asc')
+
+
+# % crédito total c/ pelo menos 1 parcela c/ superior 90 dias (%/mês).
+prop_inad_total <- Quandl('BCB/21082', 
+                       
+                       order='asc')
+
+
+# % crédito pj c/ pelo menos 1 parcela c/ superior 90 dias (%/mês).
+prop_inad_pj <- Quandl('BCB/21083', 
+                       
+                       order='asc')
+
+
+# % crédito pf c/ pelo menos 1 parcela c/ superior 90 dias (%/mês).
+prop_inad_pf <- Quandl('BCB/21084', 
+                       
+                       order='asc')
+
+
+# % crédito livre c/ pelo menos 1 parcela c/ superior 90 dias (%/mês).
+prop_inad_livre <- Quandl('BCB/21085', 
+                       
+                       order='asc')
+
+
+# % crédito direcionado c/ pelo menos 1 parcela c/ superior 90 dias (%/mês).
+prop_inad_direcionado <- Quandl('BCB/21132', 
+                       
+                       order='asc')
+
+
+# Relação serviço da dívida e renda mensal famílias, em média móvel trimestral, ajustado sazonalmente (mês).
+endiv_familias <- Quandl('BCB/19882', 
+                         
+                         order='asc',
+                         
+                          start_date = '2011-03-31')
+
+
+# Constituição mensal montante p/ fazer face a perdas prováveis nos créditos.
+provisao_perdas <- Quandl('BCB/13645', 
+                          
+                          order='asc',
+                          
+                           start_date = '2011-03-31')
+
+
+# Indicador do BCB para cálculo da relação entre agregados e o PIB (milhões de reais/mês).
+pib <- Quandl('BCB/4382', 
+               
+               order = 'asc', 
+               
+               start_date = '2011-03-31')
+
+
+
+
+# IMPORTAÇÃO DE DADOS DO IBGE PELO SIDRAR:
+
+#importação do número índice para deflacionar a série
+ipca <- get_sidra(api = '/t/1737/n1/all/v/2266/p/all/d/v2266%2013')
+
+ipca <- ts(ipca$Valor, start = c(1979,12), freq = 12)
+
+ipca <- window(ipca, start = c(2011,03))
+
+```
+
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 
@@ -257,11 +485,356 @@ perspectivas, por exemplo:
 
 ## QUANTIDADE DE OPERAÇÕES
 
+</br>
+
+- **Conceito:** Em geral, apresentado a partir da soma dos valores das novas operações de crédito 
+contratadas no período de referência no Sistema Financeiro Nacional. Por se tratar de uma série 
+monetária deve-se avaliá-la dessazonalizada (pode ser relevante avaliar com ajuste sazonal);
+
+</br>
+
+- Agrupamentos Relevantes:
+
+  - **Pessoa Física** _versus_ **Pessoa Jurídica**;
+  
+  - "**Crédito Livre**" _versus_ "**Crédito Direcionado**".
+  
+  
+---
+<div style="text-align: justify">
+
+## CONCEITOS
+
+
+</br>
+
+  
+- **Conceito de Crédito Livre**: "_Valor das novas operações de crédito contratadas no período de 
+referência com taxas de juros livremente pactuadas entre mutuários e instituições financeiras. Não 
+inclui operações referenciadas em taxas regulamentadas, operações vinculadas a recursos do Banco 
+Nacional de Desenvolvimento Econômico e Social (BNDES) ou quaisquer outras lastreadas em recursos 
+compulsórios ou governamentais._”
+
+
+</br>
+
+
+- **Conceito de Crédito Direcionado**: "_Valor das novas operações de crédito regulamentado pelo 
+Conselho Monetário Nacional (CMN) ou vinculado a recursos orçamentários, contratadas no período de 
+referência. Refere-se aos financiamentos com destinação específica, vinculados à comprovação da 
+aplicação dos recursos voltados para a produção e investimento de médio e longo prazos, tendo como 
+fonte de recursos parte das captações de depósitos à vista e de caderneta de poupança, e fundos e 
+programas públicos._"
+
+
+
+
+
+
+
+
+---
+### O BRASIL EM PERSPECTIVA: CONCESSÕES DE CRÉDITO
+
+
+```{r, warning = F,message = F, error = F, echo = F, fig.align = 'center', dpi = 300, out.width='50%'}
+
+
+concessao_credito_total <- concessao_credito_total %>% 
+  
+  mutate(Value = Value/1000)
+  
+colnames(concessao_credito_total) <- c('Datas', 'Valores')
+
+
+ts <- ts(concessao_credito_total[,2], 
+                              
+                              start = c(2011,03), 
+                              
+                              freq = 12)
+
+ts <- ipca[length(ipca)-1]*(ts/ipca)
+
+
+ts <- as.data.frame(seas(ts)) %>% 
+  
+  select(final, trend)
+
+concessao_credito_total <- cbind(concessao_credito_total, ts) %>%
+  
+  select(Datas, final, trend) %>% 
+  
+  rename('Dessazonalizado' = final,
+         
+         'Tendência' = trend) %>% 
+  
+  tidyr::pivot_longer(!Datas, names_to = 'Tratamento', values_to = 'Valores')
+
+g <- ggplot(concessao_credito_total) +
+  
+  geom_line(aes(x = Datas, y = Valores, colour = Tratamento), 
+            
+            size = 0.7) +
+  
+  labs(x = '', 
+       
+       colour = '',
+       
+       y = '(R$ Bilhões)', 
+       
+       title = 'Valor Total das Concessões de Crédito Contratadas') +
+  
+  scale_x_date(breaks = date_breaks('1 years'),
+               
+               labels = date_format('%Y')) +
+
+    xaringanthemer::theme_xaringan(text_font_size = 15,
+                                 
+                                 title_font_size = 20) 
+
+g  <- plotly::ggplotly(g) %>% 
+  
+  plotly::layout(legend = list(orientation = 'h', y = -0.3))
+
+
+widgetframe::frameWidget(g, width = '100%', height = '100%')
+
+```
+
+---
+### O BRASIL EM PERSPECTIVA: CONCESSÕES DE CRÉDITO 
+
+
+```{r, warning = F,message = F, error = F, echo = F, fig.align = 'center', dpi = 300, out.width='50%'}
+
+
+concessao_credito_pj <- concessao_credito_pj %>% 
+  
+  mutate(Value = Value/1000)
+  
+colnames(concessao_credito_pj) <- c('Datas', 'Valores')
+
+
+concessao_credito_pf <- concessao_credito_pf %>% 
+  
+  mutate(Value = Value/1000)
+  
+colnames(concessao_credito_pf) <- c('Datas', 'Valores')
+
+
+ts <- ts(concessao_credito_pj[,2], 
+         
+         start = c(2011,03), 
+         
+         freq = 12)
+
+
+ts <- ipca[length(ipca)-1]*(ts/ipca)
+
+ts <- as.data.frame(seas(ts)) %>% 
+  
+  select(final, trend)
+
+concessao_credito_pj <- cbind(concessao_credito_pj, ts) %>%
+  
+  select(Datas, final, trend) %>% 
+  
+  rename(Dessazonalizado_pj = final,
+         
+         Tendencia_pj = trend)
+
+ts <- ts(concessao_credito_pf[,2], 
+         
+         start = c(2011,03), 
+         
+         freq = 12)
+
+
+ts <- ipca[length(ipca)-1]*(ts/ipca)
+
+ts <- as.data.frame(seas(ts)) %>% 
+  
+  select(final, trend)
+
+concessao_credito_pf <- cbind(concessao_credito_pf, ts) %>%
+  
+  select(Datas, final, trend) %>% 
+  
+  rename(Dessazonalizado_pf = final,
+         
+         Tendencia_pf = trend)
+
+
+concessao_credito_pj_pf <- full_join(concessao_credito_pf,
+                                     
+                                     concessao_credito_pj) %>% 
+  
+  tidyr::pivot_longer(!Datas, names_to = 'Tratamento_grupo', values_to = 'Valores')
+
+
+g <- ggplot(concessao_credito_pj_pf) +
+  
+  geom_line(aes(x = Datas, y = Valores, colour = Tratamento_grupo), size = 0.7) +
+  
+  labs(x = '', 
+       
+       colour = '',
+       
+       y = '(R$ Bilhões)', 
+       
+       title = 'Pessoa Física x Pessoa Jurídica') +
+  
+  scale_x_date(breaks = date_breaks('1 years'),
+               
+               labels = date_format('%Y')) +
+  
+  xaringanthemer::theme_xaringan(text_font_size = 15,
+                                 
+                                 title_font_size = 20) 
+
+g  <- plotly::ggplotly(g) %>% 
+  
+  plotly::layout(legend = list(orientation = 'h', y = -0.3))
+
+
+widgetframe::frameWidget(g, width = '100%', height = '100%')
+
+```
+
+
+---
+### O BRASIL EM PERSPECTIVA: CONCESSÕES DE CRÉDITO 
+
+
+
+```{r, warning = F,message = F, error = F, echo = F, fig.align = 'center', dpi = 300, out.width='50%'}
+
+
+concessao_credito_livre <- concessao_credito_livre %>% 
+  
+  mutate(Value = Value/1000)
+  
+colnames(concessao_credito_livre) <- c('Datas', 'Valores')
+
+
+concessao_credito_direcionado <- concessao_credito_direcionado %>% 
+  mutate(Value = Value/1000)
+  
+colnames(concessao_credito_direcionado) <- c('Datas', 'Valores')
+
+
+ts <- ts(concessao_credito_livre[,2], 
+         
+         start = c(2011,03), 
+         
+         freq = 12)
+
+
+ts <- ipca[length(ipca)-1]*(ts/ipca)
+
+ts <- as.data.frame(seas(ts)) %>% 
+  
+  select(final, trend)
+
+concessao_credito_livre <- cbind(concessao_credito_livre, ts) %>%
+  
+  select(Datas, final, trend) %>% 
+  
+  rename(Dessazonalizado_livre = final,
+         
+         Tendencia_livre = trend)
+
+ts <- ts(concessao_credito_direcionado[,2], 
+         
+         start = c(2011,03), 
+         
+         freq = 12)
+
+
+ts <- ipca[length(ipca)-1]*(ts/ipca)
+
+ts <- as.data.frame(seas(ts)) %>% 
+  
+  select(final, trend)
+
+concessao_credito_direcionado <- cbind(concessao_credito_direcionado, ts) %>%
+  
+  select(Datas, final, trend) %>% 
+  
+  rename(Dessazonalizado_direcionado = final,
+         
+         Tendencia_direcionado = trend)
+
+concessao_credito_livre_direcionado <- full_join(concessao_credito_livre,
+                                     
+                                     concessao_credito_direcionado) %>% 
+  
+  tidyr::pivot_longer(!Datas, names_to = 'Tratamento_grupo', values_to = 'Valores')
+
+
+g <- ggplot(concessao_credito_livre_direcionado) +
+  
+  geom_line(aes(x = Datas, y = Valores, colour = Tratamento_grupo), size = 0.7) +
+  
+  labs(x = '', 
+       
+       colour = '',
+       
+       y = '(R$ Bilhões)', 
+       
+       title = 'Valor Total das Concessões de Crédito Contratadas') +
+  
+  scale_x_date(breaks = date_breaks('1 years'),
+               
+               labels = date_format('%Y')) +
+  
+  xaringanthemer::theme_xaringan(text_font_size = 15,
+                                 
+                                 title_font_size = 20) 
+
+g  <- plotly::ggplotly(g) %>% 
+  
+  plotly::layout(legend = list(orientation = 'h', y = -0.3))
+
+
+widgetframe::frameWidget(g, width = '100%', height = '100%')
+
+
+```
+
 
 ---
 <div style="text-align: justify">
 
 ## ESTOQUE DE OPERAÇÕES
+
+</br>
+
+- **Conceito:** Neste caso, corresponde ao saldo em final de período de todas as operações de crédito 
+contratadas no Sistema Financeiro Nacional. Por se tratar de uma série monetária deve-se avaliá-la 
+dessazonalizada (pode ser relevante avaliar com ajuste sazonal);
+
+</br>
+
+- Agrupamentos Relevantes:
+
+  - **Instituições Financeiras Públicas**;
+  
+  - "**Instituições Financeiras Privadas**".
+  
+  
+---
+<div style="text-align: justify">
+
+
+
+
+
+---
+<div style="text-align: justify">
+
+
+
 
 
 ---
